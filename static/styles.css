@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    background-color: #efefef;
+    font-family: Roboto, Arial;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+form, .form {
+    padding: 20px 30px;
+    margin: auto;
+}
+
+#heading {
+    padding: 10px 15px;
+    margin: 0;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    min-height: calc(100% - 51px);
+    position: relative;
+}
+
+.floating-button {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    border-radius: 36px;
+    border: none;
+    box-sizing: border-box;
+    background-color: #00BCD4;
+    cursor: pointer
+}
+
+.floating-button i, .flat-button i {
+    padding: 16px 18px;
+    display: inline-block;
+    font-size: 24px;
+}
+
+.flat-button i {
+    padding: 16px 10px 0 18px;
+    display: inline-block;
+    font-size: 32px;
+    color: #000;
+}
+
+.flat-button {
+    text-decoration: none;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+}
+
+.no-info {
+    display: block;
+    text-align: center;
+    padding: 15px;
+}
+
+.warning {
+    color: #000;
+}
+
+.flash {
+    border: none;
+    padding: 0 15px;
+}
+
+.error {
+    color: red;
+}
+
+#toolbar {
+    text-align: center;
+    height: 45px;
+    font-size: 24px;
+    line-height: 45px;
+}
+
+#toolbar a {
+    width: 45px;
+    margin-left: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#logout-section {
+    width: 100%;
+    text-align: right;
+    background-color: #ddd;
+    padding: 10px 50px 10px 50px;
+}
+
+#loggedin-info {
+    font-size: 0.9em;
+    margin: 0 1rem;
+}
+
+.user-welcome {
+    margin: auto;
+}
+
+.user-picture {
+    width: 200px;
+    padding: 30px;
+    margin: auto;
+}
+
+.login-button {
+    margin: 60px auto;
+    display: block;
+}
+
+#logout-info {
+    width: 100%;
+    text-align: center;
+}
+
+#result {
+    margin-top: 5%;
+    text-align: center;
+}
+
+.not-found {
+    text-align: center;
+}
+
+.center-span {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+@media screen and (min-width: 500px) {
+    body {
+        background-color: #efefef;
+        padding: 0 0 5% 0;
+    }
+
+    .container {
+        width: 70%;
+        margin: auto;
+        min-height: 90%;
+        max-width: 600px;
+    }
+
+    .back-label {
+        display: block;
+        float: right;
+        line-height: 70px;
+        color: #000;
+    }
+}

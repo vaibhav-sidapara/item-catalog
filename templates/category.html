@@ -1,0 +1,44 @@
+{% extends "main.html" %}
+{% block content %}
+    <a href="{{url_for('showCatalog')}}" class="flat-button waves-effect waves-light btn">
+        Catalog
+    </a>
+    <h3 id="heading">{{category.name}}</h3>
+
+    <div id="toolbar">
+        <a href="{{url_for('editCategory', category_id=category.id)}}">
+            <i class="material-icons">edit</i>
+        </a>
+        <a href="{{url_for('deleteCategory', category_id=category.id)}}">
+            <i class="material-icons">delete</i>
+        </a>
+    </div>
+
+    <div class='flash error'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li><strong> {{ message }} </strong></li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    </div>
+
+    <ul class="collection">
+        {% if items %}
+            {% for item in items %}
+            <li class="collection-item">
+                <a href="{{url_for('showItem', category_id=category.id, item_id=item.id)}}">{{item.name}}</a>
+            </li>
+            {% endfor %}
+        {% else %}
+            <span class="no-info">There are no items.</span>
+        {% endif %}
+    </ul>
+
+    <a href="{{url_for('addItem', category_id=category.id)}}" class="floating-button">
+        <i class="material-icons">add_circle</i>
+    </a>
+{% endblock %}

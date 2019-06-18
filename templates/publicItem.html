@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block content %}
+    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+        {{category.name}}
+    </a>
+    <h3 id="heading">{{item.name}}</h3>
+    <div class='flash error'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>Category: {{category.name}}</h4></li>
+
+        <li class="collection-header"><h4>Description</h4></li>
+        <li class="collection-item">
+            <div>{{item.description}}</div>
+        </li>
+
+        <li class="collection-header"><h4>Long Description</h4></li>
+        <li class="collection-item">
+            <div>{{item.long_description}}</div>
+        </li>
+    </ul>
+{% endblock %}

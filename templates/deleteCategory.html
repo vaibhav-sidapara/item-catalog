@@ -1,0 +1,11 @@
+{% extends "main.html" %}
+{% block content %}
+    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+        Cancel
+    </a>
+    <h3 id="heading">{{category.name}}</h3>
+    <form action="{{url_for('deleteCategory', category_id=category.id)}}" method="POST">
+        <p class="warning">Category "{{category.name}}" will be deleted. Do you wish to continue?</p>
+        <input type="submit" value="Delete" class="btn waves-effect waves-light red" />
+    </form>
+{% endblock %}

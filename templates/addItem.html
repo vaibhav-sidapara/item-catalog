@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+{% block content %}
+    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+        Cancel
+    </a>
+    <h3 id="heading">{{category.name}}</h3>
+
+    <div class='flash error'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li><strong> {{ message }} </strong></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <form method="POST" action="{{url_for('addItem', category_id=category.id)}}">
+        <label for="name">Item</label>
+        <input type="text" id="name" name="name"/>
+
+        <label for="description">Description</label>
+        <input type="text" id="description" name="description"/>
+
+        <label for="long_description">Long Description</label>
+        <textarea id="long_description" class="materialize-textarea" rows="4" name="long_description"></textarea>
+
+        <input type="submit" value="Add Item" class="btn waves-effect waves-light"/>
+    </form>
+{% endblock %}

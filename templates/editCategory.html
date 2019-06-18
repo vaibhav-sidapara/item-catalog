@@ -1,0 +1,25 @@
+{% extends "main.html" %}
+{% block content %}
+    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+        Cancel
+    </a>
+    <h1 id="heading">{{category.name}}</h1>
+
+    <div class='flash error'>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li><strong> {{ message }} </strong></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <form method="POST" action="{{url_for('editCategory', category_id=category.id)}}">
+        <label for="name">Category</label>
+        <input type="text" id="name" name="name" value="{{category.name}}"/>
+        <input type="submit" value="Update" class="btn waves-effect waves-light"/>
+    </form>
+{% endblock %}

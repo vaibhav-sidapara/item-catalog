@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% block content %}
+    <h3 id="heading">Item Catalog</h3>
+
+    <div class='flash error'>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li> <strong> {{ message }} </strong> </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    <ul class="collection">
+        {% if categories %}
+            {% for category in categories %}
+                <li class="collection-item">
+                    <a href="{{url_for('showCategory', category_id=category.id)}}">{{category.name}}</a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <span class="center-span">There are no categories.</span>
+        {% endif %}
+    </ul>
+{% endblock %}
