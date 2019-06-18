@@ -25,7 +25,7 @@ This project makes use of Linux-based virtual machine (VM).
     * You can then set the **Authorized Javascript Origins** & **Authorised redirect URIs** 
         * To run this app on localhost set the above details as below
             - *Authorized Javascript Origins* : http://localhost:8000
-            - *Authorised redirect URIs* : http://localhost:8000/glogin
+            - *Authorised redirect URIs* : http://localhost:8000/google_login
     * You will then be able to get the client ID and client secret.
     * Replace the client_secrets.json with your client secret and also replace the client_id value in login.js.
 
