@@ -10,3 +10,6 @@
 # SQLite File
 item-catalog.db
 
+# Other
+*.pyc
+
