@@ -18,7 +18,7 @@
         {% if categories %}
             {% for category in categories %}
                 <li class="collection-item">
-                    <a href="{{url_for('showCategory', category_id=category.id)}}">{{category.name}}</a>
+                    <a href="{{url_for('show_category', category_id=category.id)}}">{{category.name}}</a>
                 </li>
             {% endfor %}
         {% else %}
@@ -26,7 +26,7 @@
         {% endif %}
     </ul>
 
-    <a href="{{url_for('addCategory')}}" class="floating-button">
+    <a href="{{url_for('add_category')}}" class="floating-button">
         <i class="material-icons">add_circle</i>
     </a>
 {% endblock %}

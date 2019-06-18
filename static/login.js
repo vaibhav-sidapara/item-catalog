@@ -2,7 +2,7 @@
 /* Load the gapi.client library */
 function start() {
     gapi.load('auth2', function() {
-            auth2 = gapi.auth2.init({
+        auth2 = gapi.auth2.init({
             client_id: '964370231865-gju84d1v4el8prmark3svltttebmk0av.apps.googleusercontent.com'
         });
     });
@@ -18,7 +18,7 @@ function logInCallback(authResult) {
 
         $.ajax({
             type: 'POST',
-            url: '/glogin?state=' + state,
+            url: '/google-login?state=' + state,
             headers: {
                 'X-Requested-With': 'XMLHttpRequest'
             },
@@ -52,7 +52,7 @@ function logout() {
 
     $.ajax({
         type: 'GET',
-        url: '/glogout',
+        url: '/google-logout',
         headers: {
             'X-Requested-With': 'XMLHttpRequest'
         },

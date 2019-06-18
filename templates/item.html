@@ -1,14 +1,14 @@
 {% extends "main.html" %}
 {% block content %}
-    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+    <a href="{{url_for('show_category', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
         {{category.name}}
     </a>
     <h3 id="heading">{{item.name}}</h3>
     <div id="toolbar">
-        <a href="{{url_for('editItem', category_id=category.id, item_id=item.id)}}">
+        <a href="{{url_for('edit_item', category_id=category.id, item_id=item.id)}}">
             <i class="material-icons">edit</i>
         </a>
-        <a href="{{url_for('deleteItem', category_id=category.id, item_id=item.id)}}">
+        <a href="{{url_for('delete_item', category_id=category.id, item_id=item.id)}}">
             <i class="material-icons">delete</i>
         </a>
     </div>

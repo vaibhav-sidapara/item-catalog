@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
-    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+    <a href="{{url_for('show_category', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
         Cancel
     </a>
     <h1 id="heading">{{category.name}}</h1>
@@ -17,7 +17,7 @@
         {% endwith %}
     </div>
 
-    <form method="POST" action="{{url_for('editCategory', category_id=category.id)}}">
+    <form method="POST" action="{{url_for('edit_category', category_id=category.id)}}">
         <label for="name">Category</label>
         <input type="text" id="name" name="name" value="{{category.name}}"/>
         <input type="submit" value="Update" class="btn waves-effect waves-light"/>

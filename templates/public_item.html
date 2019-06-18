@@ -1,6 +1,6 @@
 {% extends "main.html" %}
 {% block content %}
-    <a href="{{url_for('showCategory', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
+    <a href="{{url_for('show_category', category_id=category.id)}}" class="flat-button waves-effect waves-light btn">
         {{category.name}}
     </a>
     <h3 id="heading">{{item.name}}</h3>

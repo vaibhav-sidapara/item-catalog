@@ -1,10 +1,10 @@
 {% extends "main.html" %}
 {% block content %}
-    <a href="{{url_for('showItem', category_id=category.id, item_id=item.id)}}" class="flat-button waves-effect waves-light btn">
+    <a href="{{url_for('show_item', category_id=category.id, item_id=item.id)}}" class="flat-button waves-effect waves-light btn">
         Cancel
     </a>
     <h3 id="heading">{{category.name}}</h3>
-    <form method="POST" action="{{url_for('deleteItem', category_id=category.id, item_id=item.id)}}">
+    <form method="POST" action="{{url_for('delete_item', category_id=category.id, item_id=item.id)}}">
         <p class="warning">Item "{{item.name}}" will be deleted. Do you wish to continue?</p>
         <input type="submit" value="Delete" class="btn waves-effect waves-light red"/>
     </form>

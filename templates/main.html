@@ -22,9 +22,9 @@
 <div id="logout-section">
     {% if 'username' in login_session %}
         <span id="loggedin-info">Logged in as {{login_session['username']}},</span>
-        <a id="logout-link" class="waves-effect waves-light btn" href="{{ url_for('showLogout')}}">Logout</a>
+        <a id="logout-link" class="waves-effect waves-light btn" href="{{ url_for('show_logout')}}">Logout</a>
     {% else %}
-        <a id="login-link" class="login-link" href="{{ url_for('showLogin')}}">Login</a>
+        <a id="login-link" class="waves-effect waves-light btn" href="{{ url_for('show_login')}}">Login</a>
     {% endif %}
 </div>
 <div class="container">
