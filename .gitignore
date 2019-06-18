@@ -1,0 +1,9 @@
+# Covers JetBrains IDE: PyCharm
+/.idea
+/venv
+
+# Covers macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
