@@ -5,6 +5,7 @@ import requests
 import httplib2
 from flask import make_response
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import load_only
 from sqlalchemy import create_engine, asc
 from flask import session as login_session
 from oauth2client.client import FlowExchangeError
@@ -30,6 +31,10 @@ session = DBSession()
 # Login Page View
 @app.route('/login')
 def show_login():
+    """ Returns Login View
+
+    :return: render_template
+    """
     state = ''.join(random.choice(string.ascii_uppercase + string.digits)
                     for x in xrange(32))
     login_session['state'] = state
@@ -39,6 +44,10 @@ def show_login():
 # Logout Page View
 @app.route('/logout')
 def show_logout():
+    """ Returns Logout View
+
+    :return: render_template
+    """
     if 'username' in login_session:
         return render_template('logout.html',
                                username=login_session['username'])
@@ -49,6 +58,10 @@ def show_logout():
 # Authenticate Google User
 @app.route('/google-login', methods=['POST'])
 def google_login():
+    """ Authenticates User
+
+    :return: render_template, with session
+    """
     if request.args.get('state') != login_session['state']:
         response = make_response(json.dumps('Invalid state parameter'), 401)
         response.headers['Content-Type'] = 'application/json'
@@ -134,6 +147,10 @@ def google_login():
 # Logout Google User
 @app.route('/google-logout')
 def google_logout():
+    """ Logout User
+
+    :return: render_template, revokes session
+    """
     access_token = login_session.get('access_token')
 
     if access_token is None:
@@ -173,21 +190,36 @@ def google_logout():
 
 # Retrieve UserID From Email
 def get_user_id(email):
-    user = session.query(User).filter_by(email=email).one()
-    if user:
+    """ Fetches User ID from email
+
+    :param email:
+    :return: user.id | None
+    """
+    try:
+        user = session.query(User).filter_by(email=email).one()
         return user.id
-    else:
+    except:
         return None
 
 
 # Retrieve User Information From UserID
 def get_user_info(user_id):
-    user = session.query(User).filter_by(id=user_id).one()
+    """ Fetches User Info Based On User ID
+
+    :param user_id:
+    :return: user
+    """
+    user = session.query(User).filter_by(id=user_id).one_or_none()
     return user
 
 
 # Create New User Account
 def create_user(login_session):
+    """ Creates New User
+
+    :param login_session:
+    :return: user.id
+    """
     new_user = User(name=login_session['username'],
                     email=login_session['email'],
                     picture=login_session['picture'])
@@ -201,6 +233,10 @@ def create_user(login_session):
 @app.route('/')
 @app.route('/catalog')
 def show_catalog():
+    """ Returns Catalog View
+
+    :return: render_template
+    """
     category_id = 1
     categories = session.query(Category).order_by(asc(Category.name)).all()
     items = session.query(Item).filter_by(category_id=category_id).all()
@@ -220,6 +256,11 @@ def show_catalog():
 # Category View
 @app.route('/category/<int:category_id>', methods=['GET', 'POST'])
 def show_category(category_id):
+    """ Returns Category View
+
+    :param category_id:
+    :return: render_template
+    """
     category = session.query(Category).filter_by(id=category_id).one()
     items = session.query(Item).filter_by(category_id=category_id).all()
     template = 'category.html'
@@ -236,6 +277,10 @@ def show_category(category_id):
 # Add Category View
 @app.route('/category/add', methods=['GET', 'POST'])
 def add_category():
+    """ Creates New Category
+
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -258,6 +303,11 @@ def add_category():
 # Edit Category View
 @app.route('/category/<int:category_id>/edit', methods=['POST', 'GET'])
 def edit_category(category_id):
+    """ Edit Category
+
+    :param category_id:
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -292,6 +342,11 @@ def edit_category(category_id):
 # Delete Category View
 @app.route('/category/<int:category_id>/delete', methods=['POST', 'GET'])
 def delete_category(category_id):
+    """ Delete Category
+
+    :param category_id:
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -320,6 +375,12 @@ def delete_category(category_id):
 @app.route('/category/<int:category_id>/item/<int:item_id>',
            methods=['POST', 'GET'])
 def show_item(category_id, item_id):
+    """ Show Item Details
+
+    :param category_id:
+    :param item_id:
+    :return: render_template
+    """
     category = session.query(Category).filter_by(id=category_id).one()
     item = session.query(Item).filter_by(id=item_id).one()
 
@@ -337,6 +398,11 @@ def show_item(category_id, item_id):
 # Add Item View
 @app.route('/category/<int:category_id>/item/add', methods=['POST', 'GET'])
 def add_item(category_id):
+    """ Creates New Item
+
+    :param category_id:
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -375,6 +441,12 @@ def add_item(category_id):
 @app.route('/category/<int:category_id>/item/<int:item_id>/edit',
            methods=['POST', 'GET'])
 def edit_item(category_id, item_id):
+    """ Edits Item
+
+    :param category_id:
+    :param item_id:
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -416,6 +488,12 @@ def edit_item(category_id, item_id):
 @app.route('/category/<int:category_id>/item/<int:item_id>/delete',
            methods=['POST', 'GET'])
 def delete_item(category_id, item_id):
+    """ Deletes Item
+
+    :param category_id:
+    :param item_id:
+    :return: render_template
+    """
     if 'username' not in login_session:
         return redirect('/login')
 
@@ -445,6 +523,10 @@ def delete_item(category_id, item_id):
 # JSON API Endpoint - All Categories
 @app.route('/categories/JSON')
 def categories_json():
+    """ JSON Endpoint to list categories
+
+    :return: response in json format
+    """
     categories = session.query(Category).all()
     return jsonify(categories=[c.serialize for c in categories])
 
@@ -452,6 +534,11 @@ def categories_json():
 # JSON API Endpoint - Single Category
 @app.route('/category/<int:category_id>/JSON')
 def category_json(category_id):
+    """ JSON Endpoint to list single category
+
+    :param category_id:
+    :return: response in json format
+    """
     category = session.query(Category).filter_by(id=category_id).one()
     return jsonify(category=category.serialize)
 
@@ -459,6 +546,11 @@ def category_json(category_id):
 # JSON API Endpoint - All Items
 @app.route('/category/<int:category_id>/items/JSON')
 def items_json(category_id):
+    """ JSON Endpoint to list items
+
+    :param category_id:
+    :return: response in json format
+    """
     items = session.query(Item).filter_by(category_id=category_id).all()
     return jsonify(items=[i.serialize for i in items])
 
@@ -466,6 +558,12 @@ def items_json(category_id):
 # JSON API Endpoint - Single Item
 @app.route('/category/<int:category_id>/items/<int:item_id>/JSON')
 def category_item_json(category_id, item_id):
+    """ JSON Endpoint to list single item
+
+    :param category_id:
+    :param item_id:
+    :return: response in json format
+    """
     item = session.query(Item).filter_by(
         category_id=category_id).filter_by(id=item_id).one()
     return jsonify(item=item.serialize)
@@ -474,6 +572,11 @@ def category_item_json(category_id, item_id):
 # JSON API Endpoint - Item Attributes
 @app.route('/item/<int:item_id>/JSON')
 def item_json(item_id):
+    """ JSON Endpoint to list item details
+
+    :param item_id:
+    :return: response in json format
+    """
     item = session.query(Item).filter_by(id=item_id).one()
     return jsonify(item=item.serialize)
 
@@ -481,6 +584,10 @@ def item_json(item_id):
 # Custom 404 View
 @app.errorhandler(404)
 def page_not_found():
+    """ Shows Custom 404 View
+
+    :return: render_template
+    """
     return render_template('404.html', login_session=login_session), 404
 
 
